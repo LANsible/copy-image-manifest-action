@@ -5,8 +5,8 @@ inputs:
   source:
     description: Image/manifest to retag
     required: true
-  target:
-    description: Image/manifest to retag
+  targets:
+    description: Image/manifest to retag, can be a comma seperated list
     required: true
 
 # https://github.com/sudo-bmitch/regclient-action/blob/main/regctl-installer/action.yml
@@ -41,4 +41,9 @@ runs:
         curl -sL "https://github.com/regclient/regclient/releases/latest/download/regctl-${url_platform}${url_ext}" >regctl${url_ext}
         chmod +x "regctl${url_ext}"
     - shell: bash
-      run: ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} ${{ inputs.target }}
+      env:
+        TARGETS: ${{ inputs.targets }}
+      run: |
+        for target in ${TARGETS//,/ }; do
+          ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} $target
+        done
