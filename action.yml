@@ -1,0 +1,17 @@
+---
+name: Copy image manifest
+description: Copy existing manifest to a new name, like a docker tag
+inputs:
+  source:
+    description: Image/manifest to retag
+    required: true
+  target:
+    description: Image/manifest to retag
+    required: true
+
+runs:
+  using: docker
+  image: ghcr.io/regclient/regctl:latest
+  # https://github.com/regclient/regclient/blob/main/docs/regctl.md
+  args:
+    - image copy --verbosity info ${{ inputs.source }} ${{ inputs.target }}

@@ -1,1 +1,1 @@
-# regclient-action
+# manifest-copy-action
