@@ -9,17 +9,6 @@ inputs:
     description: Image/manifest to retag
     required: true
 
-# runs:
-#   using: docker
-#   image: docker://ghcr.io/regclient/regctl:latest
-#   # https://github.com/regclient/regclient/blob/main/docs/regctl.md
-#   args:
-#     - image
-#     - copy
-#     - --verbosity=info
-#     - ${{ inputs.source }}
-#     - ${{ inputs.target }}
-
 # https://github.com/sudo-bmitch/regclient-action/blob/main/regctl-installer/action.yml
 runs:
   using: composite
