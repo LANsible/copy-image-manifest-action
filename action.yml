@@ -14,4 +14,8 @@ runs:
   image: docker://ghcr.io/regclient/regctl:latest
   # https://github.com/regclient/regclient/blob/main/docs/regctl.md
   args:
-    - image copy --verbosity info ${{ inputs.source }} ${{ inputs.target }}
+    - image
+    - copy
+    - --verbosity=info
+    - ${{ inputs.source }}
+    - ${{ inputs.target }}
