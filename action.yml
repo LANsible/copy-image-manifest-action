@@ -8,6 +8,9 @@ inputs:
   targets:
     description: Image/manifest to retag, can be a comma seperated list
     required: true
+  wait:
+    description: Wait for the source to be available
+    default: true
 
 # https://github.com/sudo-bmitch/regclient-action/blob/main/regctl-installer/action.yml
 runs:
@@ -40,6 +43,13 @@ runs:
         esac
         curl -sL "https://github.com/regclient/regclient/releases/latest/download/regctl-${url_platform}${url_ext}" >regctl${url_ext}
         chmod +x "regctl${url_ext}"
+    - shell: bash
+      if: inputs.wait
+      run: |
+        until regctl image inspect ${{ inputs.source }}; do
+          echo "${{ inputs.source }} not yet available, retrying in 10s";
+          sleep 10s;
+        done;
     - shell: bash
       env:
         TARGETS: ${{ inputs.targets }}
