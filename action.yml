@@ -48,7 +48,7 @@ runs:
             exit 1
             ;;
         esac
-        curl -sL "https://github.com/regclient/regclient/releases/latest/download/regctl-${{RUNNER_OS}}-${{RUNNER_ARCH}} >regctl${url_ext}"
+        curl -sL "https://github.com/regclient/regclient/releases/latest/download/regctl-${url_platform}${url_ext} >regctl${url_ext}"
         chmod +x "regctl${url_ext}"
     - shell: bash
       run: ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} ${{ inputs.target }}
