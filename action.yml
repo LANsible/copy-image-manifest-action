@@ -51,9 +51,7 @@ runs:
           sleep 10s;
         done;
     - shell: bash
-      env:
-        TARGETS: ${{ inputs.targets }}
       run: |
-        for target in ${TARGETS//,/ }; do
+        for target in ${{ inputs.targets }}; do
           ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} $target
         done
