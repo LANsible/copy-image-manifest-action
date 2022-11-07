@@ -52,7 +52,7 @@ runs:
         done;
     - shell: bash
       env:
-        TARGETS: ${{ inputs.targets }}
+        TARGETS: ${{ join(inputs.targets) }}
       run: |
         for target in "$TARGETS"; do
           ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} $target
