@@ -11,6 +11,10 @@ inputs:
   wait:
     description: Wait for the source to be available
     default: true
+  # TODO: make this a list to wait for all platforms instead of guessing the slowest
+  wait_architecture:
+    description: Set architecture to wait for, usefull to choose slowest build
+    default: amd64
 
 # https://github.com/sudo-bmitch/regclient-action/blob/main/regctl-installer/action.yml
 runs:
@@ -46,7 +50,7 @@ runs:
     - shell: bash
       if: inputs.wait
       run: |
-        until ./regctl image inspect ${{ inputs.source }} &>/dev/null; do
+        until ./regctl image inspect ${{ inputs.source }} | grep -q '"architecture": "${{ inputs.wait_architecture }}"'; do
           echo "${{ inputs.source }} not yet available, retrying in 10s";
           sleep 10s;
         done;
