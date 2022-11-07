@@ -52,6 +52,6 @@ runs:
         done;
     - shell: bash
       run: |
-        for target in ${{ inputs.targets }}; do
+        for target in "${{ inputs.targets }}"; do
           ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} $target
         done
