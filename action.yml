@@ -52,8 +52,8 @@ runs:
         done;
     - shell: bash
       env:
-        TARGETS: ${{ join(inputs.targets) }}
+        TARGETS: ${{ inputs.targets }}
       run: |
-        for target in "$TARGETS"; do
+        for target in ${TARGETS//,/ }; do
           ./regctl${url_ext} image copy --verbosity=info ${{ inputs.source }} $target
         done
