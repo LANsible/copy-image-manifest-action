@@ -1,6 +1,9 @@
 ---
 name: Copy image manifest
 description: Copy existing manifest to a new name, like a docker tag
+branding:
+  icon: copy
+  color: blue
 inputs:
   source:
     description: Image/manifest to retag
