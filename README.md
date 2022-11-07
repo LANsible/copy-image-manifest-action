@@ -1,8 +1,7 @@
-# manifest-copy-action
+# copy-image-manifest-action
 
-Copy a image manifest from one registry to the other or 'retag' an existing manifest.
-
-Usefull to retag your sha hash builds to tags without the need to rebuild.
+Copy a image manifest from one registry to the other or 'retag' an existing manifest by using [regclient/regclient](https://github.com/regclient/regclient/).
+Useful to retag your sha hash builds to tags without the need to rebuild.
 
 ## Option
 
@@ -50,3 +49,7 @@ Used in my workflow, the most up to date example:
             ghcr.io/lansible/test:latest
           wait_platforms: linux/amd64,linux/arm64
 ```
+
+## Credits
+
+* [regclient/regclient](https://github.com/regclient/regclient/)
