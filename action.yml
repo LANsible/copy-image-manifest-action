@@ -46,7 +46,7 @@ runs:
     - shell: bash
       if: inputs.wait
       run: |
-        until ./regctl image inspect ${{ inputs.source }}; do
+        until ./regctl image inspect ${{ inputs.source }} &>/dev/null; do
           echo "${{ inputs.source }} not yet available, retrying in 10s";
           sleep 10s;
         done;
