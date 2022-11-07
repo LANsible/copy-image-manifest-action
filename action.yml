@@ -12,9 +12,9 @@ inputs:
     description: Wait for the source to be available
     default: true
   # TODO: make this a list to wait for all platforms instead of guessing the slowest
-  wait_architecture:
-    description: Set architecture to wait for, usefull to choose slowest build
-    default: amd64
+  wait_platforms:
+    description: Set platform to wait for, usefull to choose slowest build
+    default: linux/amd64
 
 # https://github.com/sudo-bmitch/regclient-action/blob/main/regctl-installer/action.yml
 runs:
@@ -49,11 +49,22 @@ runs:
         chmod +x "regctl${url_ext}"
     - shell: bash
       if: inputs.wait
+      env:
+        WAIT_PLATFORMS: ${{ inputs.wait_platforms }}
       run: |
-        until ./regctl image inspect ${{ inputs.source }} | grep -q '"architecture": "${{ inputs.wait_architecture }}"'; do
-          echo "${{ inputs.source }} not yet available, retrying in 10s";
-          sleep 10s;
-        done;
+        platforms=${WAIT_PLATFORMS//,/ }
+        if [ ${#platforms[@]} -eq 1 ]; then
+          until ./regctl image inspect ${{ inputs.source }}; do
+            echo "${{ inputs.source }} not yet available, retrying in 10s";
+            sleep 10s;
+          done;
+        else
+          pattern=${WAIT_PLATFORMS//|/ }
+          until [ $(./regctl manifest get ${{ inputs.source }} | grep -Ec "$pattern") -eq ${#platforms[@]} ]; do
+            echo "Not all platforms are available yet, retrying in 10s";
+            sleep 10s;
+          done;
+        fi
     - shell: bash
       env:
         TARGETS: ${{ inputs.targets }}
