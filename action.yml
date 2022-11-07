@@ -11,7 +11,6 @@ inputs:
   wait:
     description: Wait for the source to be available
     default: true
-  # TODO: make this a list to wait for all platforms instead of guessing the slowest
   wait_platforms:
     description: Set platform to wait for, usefull to choose slowest build
     default: linux/amd64
