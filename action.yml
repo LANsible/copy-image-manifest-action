@@ -59,7 +59,7 @@ runs:
             sleep 10s;
           done;
         else
-          pattern=${WAIT_PLATFORMS//|/ }
+          pattern=${WAIT_PLATFORMS//,/|}
           until [ $(./regctl manifest get ${{ inputs.source }} | grep -Ec "$pattern") -eq ${#platforms[@]} ]; do
             echo "Not all platforms are available yet, retrying in 10s";
             sleep 10s;
