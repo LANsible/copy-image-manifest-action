@@ -54,7 +54,7 @@ runs:
       run: |
         platforms=${WAIT_PLATFORMS//,/ }
         if [ ${#platforms[@]} -eq 1 ]; then
-          until ./regctl image inspect ${{ inputs.source }}; do
+          until ./regctl image inspect ${{ inputs.source }} &>/dev/null; do
             echo "${{ inputs.source }} not yet available, retrying in 10s";
             sleep 10s;
           done;
