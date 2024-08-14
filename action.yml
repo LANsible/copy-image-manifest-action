@@ -47,7 +47,7 @@ runs:
             exit 1
             ;;
         esac
-        curl -sL "https://github.com/regclient/regclient/releases/latest/download/regctl-${url_platform}${url_ext}" >regctl${url_ext}
+        wget --quiet --span-hosts -O regctl${url_ext} "https://github.com/regclient/regclient/releases/latest/download/regctl-${url_platform}${url_ext}"
         chmod +x "regctl${url_ext}"
     - shell: bash
       if: inputs.wait
