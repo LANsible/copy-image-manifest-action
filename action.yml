@@ -48,8 +48,8 @@ runs:
             ;;
         esac
         if ! command -v wget >/dev/null; then
-          apt-get update -y
-          apt-get install -y --no-install-recommends wget
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends wget
         fi
         wget --quiet --span-hosts -O regctl${url_ext} "https://github.com/regclient/regclient/releases/latest/download/regctl-${url_platform}${url_ext}"
         chmod +x "regctl${url_ext}"
